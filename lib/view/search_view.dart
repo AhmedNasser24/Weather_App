@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widget/text_field.dart';
+import '../widget/input_validation.dart';
 
 
 
@@ -13,9 +13,7 @@ class SearchView extends StatelessWidget {
         
         title: const Text("Search a city"),
       ),
-      body: const Center(
-        child: SearchTextField(),
-      ),
+      body: SearchTextField(),
     );
   }
 }

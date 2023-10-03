@@ -9,15 +9,19 @@ class WeatherServices {
   final String baseUrl = 'https://api.weatherapi.com/v1';
   final String apiKey = '688b43c7837d446fa64145344232409';
 
-  Future<WeatherModel> getWeatherData({required String cityName}) async {
+  Future <List <WeatherModel>> getWeatherData({required String cityName , required int numberOfDays}) async {
     try {
-      var response =
-          await dio.get("$baseUrl/forecast.json?key=$apiKey&q=$cityName");
+      var response = await dio
+          .get("$baseUrl/forecast.json?key=$apiKey&q=$cityName&days=$numberOfDays");
       Map<String, dynamic> jsonData = response.data;
-      return WeatherModel.fromJson(jsonData);
+      List < WeatherModel > weatherModelList = [];
+      for (int i = 0; i < numberOfDays; i++) {
+        weatherModelList.add(WeatherModel.fromJson(jsonData , i ,numberOfDays )) ;
+      }
+      return weatherModelList ;
     } on DioException catch (e) {
-       String errorMessage = e.response?.data['error']['message'] ??
-          getDioException(e)[0];
+      String errorMessage =
+          e.response?.data['error']['message'] ?? getDioException(e)[0];
       throw Exception(errorMessage);
     } catch (e) {
       const String errorMessage = 'oops , there was an error , try later !';

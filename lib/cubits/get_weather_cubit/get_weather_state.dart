@@ -6,7 +6,7 @@ class NoWeatherState extends WeatherState {}
 class LoadingWeatherState extends WeatherState {}
 class SuccessWeatherState extends WeatherState {
   SuccessWeatherState(this.weatherModel) ;
-  final WeatherModel weatherModel ;
+  final List <WeatherModel> weatherModel ;
   
 }
 class FailureWeatherState extends WeatherState {

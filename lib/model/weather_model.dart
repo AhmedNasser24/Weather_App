@@ -6,8 +6,9 @@ class WeatherModel {
   final String airCondition;
   final String imageOfAirCondition;
   final String cityName ;
-
+  final int totalDays ;
   WeatherModel( {
+    required this.totalDays,
     required this.cityName,
     required this.maxTemp,
     required this.minTemp,
@@ -17,15 +18,16 @@ class WeatherModel {
     required this.imageOfAirCondition,
   });
 
-  factory WeatherModel.fromJson(Map < String , dynamic > json) {
+  factory WeatherModel.fromJson(Map < String , dynamic > json , int dayIndx , int numberOfDays ) {
 
     WeatherModel weatherModel = WeatherModel(
-      maxTemp: json["forecast"]["forecastday"][0]["day"]["maxtemp_c"],
-      minTemp: json["forecast"]["forecastday"][0]["day"]["mintemp_c"],
-      avgTemp: json["forecast"]["forecastday"][0]["day"]["avgtemp_c"],
+      totalDays: numberOfDays,
+      maxTemp: json["forecast"]["forecastday"][dayIndx]["day"]["maxtemp_c"],
+      minTemp: json["forecast"]["forecastday"][dayIndx]["day"]["mintemp_c"],
+      avgTemp: json["forecast"]["forecastday"][dayIndx]["day"]["avgtemp_c"],
       update: DateTime.parse(json["current"]["last_updated"]) ,
-      airCondition: json["current"]["condition"]["text"],
-      imageOfAirCondition: json["current"]["condition"]["icon"],
+      airCondition: json["forecast"]["forecastday"][dayIndx]["day"]["condition"]["text"],
+      imageOfAirCondition: json["forecast"]["forecastday"][dayIndx]["day"]["condition"]["icon"],
       cityName: json["location"]['name'],
     );
 

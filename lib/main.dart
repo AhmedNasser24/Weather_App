@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/cubit/change_theme_color_cubit/change_theme_color_cubit.dart';
-import 'package:weather_app/view/home_view.dart';
+import 'package:weather_app/cubits/change_day/change_day.dart';
+import 'package:weather_app/cubits/get_weather_cubit/get_weather_state.dart';
+import 'package:weather_app/functions/material_color.dart';
 import 'package:weather_app/view/splash_view.dart';
 
-import 'cubit/get_weather_cubit/get_weather_cubit.dart';
+import 'cubits/get_weather_cubit/get_weather_cubit.dart';
 
 void main() {
   runApp(const WeatherApp());
@@ -21,19 +22,29 @@ class WeatherApp extends StatelessWidget {
         BlocProvider<GetWeatherCubit>(
           create: (BuildContext context) => GetWeatherCubit(),
         ),
-        BlocProvider<ChangeThemeColorCubit>(
-          create: (BuildContext context) => ChangeThemeColorCubit(), // read notes on this cubit
+        
+        BlocProvider<ChangeDayCubit>(
+          create: (BuildContext context) =>
+              ChangeDayCubit(), // read notes on this cubit
         ),
       ],
       child: Builder(
-        builder: (context) => BlocBuilder<ChangeThemeColorCubit, MaterialColor>(
-          builder: (context, materialColor) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                primarySwatch:  materialColor,
-              ),
-              home: const SplashView(),
+        builder: (context) => BlocBuilder<GetWeatherCubit, WeatherState>(
+          builder: (context, state) {
+            return BlocBuilder<ChangeDayCubit, int>(
+              builder: (context, dayIndex) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(
+                    primarySwatch: (state is SuccessWeatherState)
+                        ? getMaterialColor(
+                            WeatherCondition:
+                                state.weatherModel[dayIndex].airCondition)
+                        : Colors.blue,
+                  ),
+                  home: const SplashView(),
+                );
+              },
             );
           },
         ),
@@ -42,24 +53,24 @@ class WeatherApp extends StatelessWidget {
   }
 }
 
-class CustomMaterialApp extends StatelessWidget {
-  const CustomMaterialApp({
-    super.key,
-  });
+// class CustomMaterialApp extends StatelessWidget {
+//   const CustomMaterialApp({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ChangeThemeColorCubit, MaterialColor>(
-      builder: (context, materialColor) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(primarySwatch: materialColor),
-          home: const HomeView(),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<ChangeThemeColorCubit, MaterialColor>(
+//       builder: (context, materialColor) {
+//         return MaterialApp(
+//           debugShowCheckedModeBanner: false,
+//           theme: ThemeData(primarySwatch: materialColor),
+//           home: const HomeView(),
+//         );
+//       },
+//     );
+//   }
+// }
 
 // MaterialColor getMaterialColorForWeatherCondition(String? weatherCondition) {
 //   if (weatherCondition == null) {
