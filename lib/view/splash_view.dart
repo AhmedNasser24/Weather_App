@@ -26,7 +26,7 @@ class _SplashViewState extends State<SplashView>
       ),
     );
     _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(vsync: this, duration: Duration(seconds: 4));
     _animationController.forward();
   }
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:weather_app/model/weather_model.dart';
@@ -7,7 +5,7 @@ import 'package:weather_app/model/weather_model.dart';
 class WeatherServices {
   final Dio dio = Dio();
   final String baseUrl = 'https://api.weatherapi.com/v1';
-  final String apiKey = '688b43c7837d446fa64145344232409';
+  final String apiKey = '8319d3361b5148ed97d110516230212';
 
   Future <List <WeatherModel>> getWeatherData({required String cityName , required int numberOfDays}) async {
     try {

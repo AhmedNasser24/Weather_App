@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/cubits/change_day/change_day.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/widget/big_text.dart';
 import 'package:weather_app/widget/cached_network_image.dart';
-import 'package:weather_app/widget/change_day.dart';
 import 'package:weather_app/widget/medium_text.dart';
 import 'package:weather_app/widget/small_text.dart';
-import 'package:weather_app/widget/input_validation.dart';
 import 'package:weather_app/widget/vertical_distance.dart';
 
 import '../functions/material_color.dart';

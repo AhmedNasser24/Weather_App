@@ -1,4 +1,4 @@
-In this app ,I learnd many skills as :
+In this app ,I learned many skills as :
 
 1) using Cached Network Image widget
 2) dealing with api 
